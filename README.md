@@ -24,7 +24,7 @@ The objective is to train models on 10 out of the 11 datasets and assess their a
 
 ![Table extract from [1]](imgs/dataset_infos.png)
 
-Among the eleven datasets of the orginal publication, teh dataset **Balleny Island 2015** is chose for evaluation. This dataset represent a unique geographical location, the recording device used is only share with one other dataset and finally, all seven labels are significatively present in it.
+Among the eleven datasets of the orginal publication, the dataset **Balleny Island 2015** is chose for evaluation. This dataset represent a unique geographical location, the recording device used is only share with one other dataset and finally, all seven labels are significatively present in it.
 
 Seven labels have to be detected: 
 - **BmA**: Antarctic blue whale unit A
@@ -35,12 +35,14 @@ Seven labels have to be detected:
 - **Bp20Plus**: Fin whale 20 Hz pulse with energy at higher frequencies (e.g. 89 or 99 Hz components)
 - **BpDS**: Fin whale FM calls (AKA ‘high frequency’ downsweep; AKA 40 Hz pulse). 
 
+**Please, note that the proposition is a beta-test. We strongly believe that a cross validation over the 11 datasets should be done in futur versions**
+
 Both the training and evaluation data have been reorganized and are available in a single downloadable package: [Download dataset](https://drive.google.com/drive/folders/1sJov_w8VBNbEdmjJeYuIBS_10YIqVRql?usp=sharing)
 
 
 
 ### Data Annotation
-The annotations for the training set have been standardized as follows:
+The annotations for each dataset have been standardized as follows:
 
 | filename | label | start | end |
 | ------- | ------ | ---- | ---- |
@@ -77,7 +79,7 @@ Where:
 - `label`: Label type (BmA/BmB/BmZ/BmD/Bp20Hz/Bp20Plus/BpDS)
 - `timestamp`: The detection time from the start of the file.
 
-You may find an annotation set for each dataset.
+You will find the annotation file for evaluation set on this repository.
 
 ### Model Requirements
 
