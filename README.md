@@ -1,11 +1,10 @@
 Benchmark for automatic detection of cetaceans using underwater acoustic recordings
 
-# Task 1b - Detecting Antarctic baleen whale sounds accross multiple geographical areas around Antarctica
+# Task 1b - Detecting Antarctic baleen whale sounds across multiple geographical areas around Antarctica
 
 ## Introduction
 
-The goal of this task is to produce a model that is able to detect Antarctic baleen whale sounds accross multiple geographical areas around Antarctica. The datasets used are proposed by Miller et al (2022) [1], a collection of 11 open access datasets for developing automated detectors. This dataset has been chose as it is the largest open acess dataset, with multiple species manyally annotated over a large geograohical area and temporal period. 
-
+The goal of this task is to produce a model that is able to detect Antarctic baleen whale sounds across multiple geographical areas around Antarctica. The datasets used are proposed by Miller et al (2022) [1], a collection of 11 open-access datasets for developing automated detectors. This dataset has been chosen as it is the largest open access dataset, with multiple species manually annotated over a large geographical area and temporal period. 
 More information can be found on the original paper [1]
 
 
@@ -24,7 +23,7 @@ The objective is to train models on 10 out of the 11 datasets and assess their a
 
 ![Table extract from [1]](imgs/dataset_infos.png)
 
-Among the eleven datasets of the orginal publication, the dataset **Balleny Island 2015** is chose for evaluation. This dataset represent a unique geographical location, the recording device used is only share with one other dataset and finally, all seven labels are significatively present in it.
+Among the eleven datasets in the original publication, the dataset **Balleny Island 2015** was chosen for evaluation. This dataset represents a unique geographical location, the recording device used is only shared with one other dataset and finally, all seven labels are significatively present in it.
 
 Seven labels have to be detected: 
 - **BmA**: Antarctic blue whale unit A
@@ -35,7 +34,7 @@ Seven labels have to be detected:
 - **Bp20Plus**: Fin whale 20 Hz pulse with energy at higher frequencies (e.g. 89 or 99 Hz components)
 - **BpDS**: Fin whale FM calls (AKA ‘high frequency’ downsweep; AKA 40 Hz pulse). 
 
-**Please, note that the proposition is a beta-test. We strongly believe that a cross validation over the 11 datasets should be done in futur versions**
+**Please, note that the proposition is a beta-test. We strongly believe that a cross validation over the 11 datasets should be done in future versions**
 
 Both the training and evaluation data have been reorganized and are available in a single downloadable package: [Download dataset](https://drive.google.com/drive/folders/1sJov_w8VBNbEdmjJeYuIBS_10YIqVRql?usp=sharing)
 
@@ -79,7 +78,7 @@ Where:
 - `label`: Label type (BmA/BmB/BmZ/BmD/Bp20Hz/Bp20Plus/BpDS)
 - `timestamp`: The detection time from the start of the file.
 
-You will find the annotation file for evaluation set on this repository.
+You will find the annotation file for the evaluation set in this repository.
 
 ### Model Requirements
 
@@ -98,7 +97,7 @@ Please see the examples in this page for a more in depth discussion on how to pr
 
 ### Model Evaluation
 
-Models will be evaluated based on Precision, Recall and F1 score average over each label. The test set includes 200 hours of recordings at 1KHz (but it can be downsampled at 250Hz as no target vocalization get higher than 120Hz), with:
+Models will be evaluated based on Precision, Recall and F1 score average over each label. The test set includes 200 hours of recordings at 1KHz (but it can be downsampled at 250Hz as no target vocalization gets higher than 120Hz), with:
 - 923 BmA 
 - 44 BmB
 - 31 BmZ
@@ -144,7 +143,7 @@ We have prepared a sample code run a simple baseline and to provide general guid
 
 ## Requirements
 
-Python > 3.9.10
+Python > 3.8
 
 It is recommended to create a new python environment to run the code and install the dependencies.
 
@@ -163,11 +162,11 @@ To run the code simply issue the commands in your CLI. Ensure you are in the cor
 In this example, a simple 3-layer CNN has been trained to classify 15-second audio segments as either containing each one of the seven targeted labels. Below is a detailed outline of the process.
 
 
-1. **Data Preprocessing**: Segments of 15 seconds with an offset of 2.5 seconds are checked for all dataset. If a segment contain more than 50% of an annotation, it is considered as positive for the given label. 
-All positive segment and as many negative segment of ten datasets are extarcted to constitute the develpment set. All segment of the dataset used for evaluation constitute the evaluation set, to imitate a realistic detection task in an unknown dataset.
+1. **Data Preprocessing**: Segments of 15 seconds with an offset of 2.5 seconds are checked for all datasets. If a segment contains more than 50% of an annotation, it is considered as positive for the given label. 
+All positive segments and as many negative segments of ten datasets are extracted to constitute the development set. All segments of the dataset used for evaluation constitute the evaluation set, to imitate a realistic detection task in an unknown dataset.
 2. **CNN Training**: The CNN is trained using the selected samples over a few epochs.
 3. **Classifier Application**: The trained CNN is applied to the entirety of the test wave files using a sliding window approach. 
-4. **Performance Measurement**: The detections are evaluated against the ground truth annotations for the test dataset. Precision, Recall and F1 score are firstly computed separately for each labels and then averaged as the number of detected event for each label is imbalanced. 
+4. **Performance Measurement**: The detections are evaluated against the ground truth annotations for the test dataset. Precision, Recall and F1 score are first computed separately for each label and then averaged as the number of detected events for each label is imbalanced. 
 
 Each stage of the process is encapsulated in its own Python script:
 - `format_data.py` — For data preprocessing and database creation.
@@ -175,23 +174,23 @@ Each stage of the process is encapsulated in its own Python script:
 - `run_cnn.py` — For the application of the CNN classifier on test data.
 - `evaluation.py` — For the calculation of performance metrics.
 
-All fixed parameters such as spectrogram configuration or hyperparameters for the training specified in the `parameters.py` file. Each script contains comments and can be executed via the OS CLI, as outlined in the sections below. Participants are allowed to reuse and modify any part of the code for their needs (exept the evaluation part).
+All fixed parameters such as spectrogram configuration or hyperparameters for the training specified in the `parameters.py` file. Each script contains comments and can be executed via the OS CLI, as outlined in the sections below. Participants are allowed to reuse and modify any part of the code for their needs (except the evaluation part).
 
 ## Creating the database
 
-To create the database, we will use the `format_data.py` script. For this sample code, the training dataset is constitute from segment extracted in 10 datasets, all exept Balleny Island 2015. 
+To create the database, we will use the `format_data.py` script. For this sample code, the training dataset is composed of segments extracted from 10 datasets, all except Balleny Island 2015. 
 
 Firstly, all datasets are checked segment by segment: each segment has a duration of 15 seconds and the overlap between each segment is 12.5 seconds (offset of 2.5 seconds).
-For each segment, if it countains at least 50% of an annotated vocalization, the corresponding label is considered as positive. 
-A resulting CSV file is saved (`ALLannotations.csv`), with one row per segment. Each row indicate: the path to the original audio file, the start and the end of segment in seconds and a boolean value for each label (positive or negative).   
+For each segment, if it contains at least 50% of an annotated vocalization, the corresponding label is considered positive. 
+A resulting CSV file is saved (`ALLannotations.csv`), with one row per segment. Each row indicate: the path to the original audio file, the start and the end of the segment in seconds, and a boolean value for each label (positive or negative).   
 
-Then, two CSV file are saved, containing selected samples for develpment and evaluation:
-- `DEVannotations.csv`: Over the 10 dataset seletcted for development, all positive segments and as many negative segments are extarcted to constitute the develpment set.
+Then, two CSV files are saved, containing selected samples for development and evaluation:
+- `DEVannotations.csv`: Over the 10 datasets selected for development, all positive segments and as many negative segments are extracted to constitute the development set.
 - `EVALannotations.csv`: All segment of the dataset used for evaluation (Balleny Island 2015) constitute the evaluation set, to imitate a realistic detection task in an unknown dataset.
 
 Please, note that those 3 CSV file will be saved in a folder name `annot_merged` in the path to the directory where the data is stored. 
 
-### Creating the Training and Evaulation Dataset
+### Creating the Training and Evaluation Dataset
 
 Run the following command to create the training database:
 
@@ -201,7 +200,7 @@ python format_data.py datasets_folder_path/
 
 ### Parameters Explained
 
-- `datasets_folder_path/`: The directory where the data is stored (i.e. a folder 'datasets' containing all the folders for each datasets).
+- `datasets_folder_path/`: The directory where the data is stored (i.e. a folder 'datasets' containing all the folders for each dataset).
 
 
 ## Train a Model
@@ -216,18 +215,18 @@ python train_cnn.py datasets_folder_path/ model_path/
 
 ### Parameters Explained
 
-- `datasets_folder_path/`: The directory where the data is stored (i.e. a folder 'datasets' containing all the folders for each datasets).
+- `datasets_folder_path/`: The directory where the data is stored (i.e. a folder 'datasets' containing all the folders for each dataset).
 - `model_path/`: The directory where the trained model will be saved.
 
 ## Run the Model
 
 Next, we need to run the model trained in the previous step on the test data and save these detections in a CSV file.
 
-Since our model operates on 15-second segments overlapped with 12.5 seconds, to comply with the challenge specification that the detection CSV file is formatted with a filename and timestamp, we must extract a timestamp. While different design decisions can be made here, we will use a simplistic approach: Detections that exceed a given detection threshold for the upcall class are recorded. As the offset contitute a small portion of the segments duration, we keep only the suite of at least 4 positive segments. The timestamp of the center of the suite is kept for the evaluation.
+Since our model operates on 15-second segments overlapped with 12.5 seconds, to comply with the challenge specification that the detection CSV file is formatted with a filename and timestamp, we must extract a timestamp. While different design decisions can be made here, we will use a simplistic approach: detections that exceed a given detection threshold for each label are recorded. As the offset constitutes a small portion of the segments' duration, we keep only the suite of at least 4 positive segments. The timestamp of the center of the suite is kept for the evaluation.
 
 Other approaches can be taken, and participants are encouraged to use any method they see fit for their model.
 
-For the purposes of htis sample code, to run the model on a dicretory of audio files:
+For the purposes of this sample code, to run the model on a directory of audio files:
 
 ```shell
 python run_cnn.py datasets_folder_path/ model_path/
@@ -235,12 +234,12 @@ python run_cnn.py datasets_folder_path/ model_path/
 
 ### Parameters Explained
 
-- `datasets_folder_path/`: The directory where the data is stored (i.e. a folder 'datasets' containing all the folders for each datasets).
+- `datasets_folder_path/`: The directory where the data is stored (i.e. a folder 'datasets' containing all the folders for each dataset).
 - `model_path/`: The directory containing the trained model from the previous step.
 
 ## Evaluate on test data
 
-Finally, please use the the `evaluation.py` script to compute the final evaluation metrics of the detector on the test dataset. All participants will be evaluated in the same manner.
+Finally, please use the `evaluation.py` script to compute the final evaluation metrics of the detector on the test dataset. All participants will be evaluated in the same manner.
 
 ```shell
 python metrics.py annotations_test.csv detections.csv
