@@ -39,32 +39,6 @@ Seven labels have to be detected:
 Both the training and evaluation data have been reorganized and are available in a single downloadable package: [Download dataset](https://drive.google.com/drive/folders/1sJov_w8VBNbEdmjJeYuIBS_10YIqVRql?usp=sharing)
 
 
-### Model Requirements
-
-Participants are free to employ any preprocessing technique and network architecture. The onyl requirement is that the final output of your model MUST be a CSV file formatted as follows:
-
-| filename   | label | timestamp |
-| ---------- | --------- | --------|
-Where:
-- `filename`: The name of the file where the detection occurred.
-- `label`: Label type of the detected vocalization (BmA/BmB/BmZ/BmD/Bp20Hz/Bp20Plus/BpDS)
-- `timestamp`: The detection time from the start of the file.
-
-A 10-second buffer will be applied, where detections within this range from the annotation will be considered a true positive.
-
-Please see the examples in this page for a more in depth discussion on how to provide the timestamps.
-
-### Model Evaluation
-
-Models will be evaluated based on Precision, Recall and F1 score average over each label. The test set includes 200 hours of recordings at 1KHz (but it can be downsampled at 250Hz as no target vocalization gets higher than 120Hz), with:
-- 923 BmA 
-- 44 BmB
-- 31 BmZ
-- 46 BmD
-- 951 Bp20Hz
-- 148 Bp20Plus
-- 78 BpDS
-
 #### Performance Metrics
 
 The provided `evaluation.py` script will be used to compute metrics for each label.
