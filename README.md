@@ -39,47 +39,6 @@ Seven labels have to be detected:
 Both the training and evaluation data have been reorganized and are available in a single downloadable package: [Download dataset](https://drive.google.com/drive/folders/1sJov_w8VBNbEdmjJeYuIBS_10YIqVRql?usp=sharing)
 
 
-
-### Data Annotation
-The annotations for each dataset have been standardized as follows:
-
-| filename | label | start | end |
-| ------- | ------ | ---- | ---- |
-
-Where:
-- `filename`: Name of the file containing a vocalization, with the relative path.
-- `label`: Label type (BmA/BmB/BmZ/BmD/Bp20Hz/Bp20Plus/BpDS)
-- `start`: Start time in seconds from the beginning of the file where the vocalization begins.
-- `end`: End time in seconds where the vocalization concludes.
-
-For instance:
-
-Consider an audio file named `20161216_080000.wav` from the dataset `Casey 2017`containing a detected `BmA` vocalization. The annotation for this file in the dataset might look like this:
-
-
-| filename                  | label | start  | end  |
-|---------------------------|-------|------|------|
-| datasets\BlueFinLibrary_casey2017\audio\20161216_080000.wav    | BmA   | 146.58  |152.00  |
-
-Where:
-- `filename`: `datasets\BlueFinLibrary_casey2017\audio\20161216_080000.wav` is the path of the audio file.
-- `label`: `BmA` is the label annotated among the seven to detect.  
-- `start`: `146.58` seconds is the time from the start of the audio file when the BmA vocalization begins.
-- `end`: `152.00` seconds is the time when the BmA vocalization ends.
-
-
-The annotations for the evaluation set include:
-
-| filename   | label | timestamp |
-| ---------- | --------- | --------|
-
-Where:
-- `filename`: The name of the file where the detection occurred.
-- `label`: Label type (BmA/BmB/BmZ/BmD/Bp20Hz/Bp20Plus/BpDS)
-- `timestamp`: The detection time from the start of the file.
-
-You will find the annotation file for the evaluation set in this repository.
-
 ### Model Requirements
 
 Participants are free to employ any preprocessing technique and network architecture. The onyl requirement is that the final output of your model MUST be a CSV file formatted as follows:
