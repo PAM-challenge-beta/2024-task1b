@@ -1,42 +1,5 @@
-Benchmark for automatic detection of cetaceans using underwater acoustic recordings
-
-# Task 1b - Detecting Antarctic baleen whale sounds across multiple geographical areas around Antarctica
-
-## Introduction
-
-The goal of this task is to produce a model that is able to detect Antarctic baleen whale sounds across multiple geographical areas around Antarctica. The datasets used are proposed by Miller et al (2022) [1], a collection of 11 open-access datasets for developing automated detectors. This dataset has been chosen as it is the largest open access dataset, with multiple species manually annotated over a large geographical area and temporal period. 
-More information can be found on the original paper [1]
 
 
- [1] Miller, B.S., The IWC-SORP/SOOS Acoustic Trends Working Group, Miller, B.S., Stafford, K.M., Van Opzeeland, I., Harris, D., Samaran, F., Širović, A., Buchan, S., Findlay, K., Balcazar, N., Nieukirk, S., Leroy, E.C., Aulich, M., Shabangu, F.W., Dziak, R.P., Lee, W.S., Hong, J.K., 2021. An open access dataset for developing automated detectors of Antarctic baleen whale sounds and performance evaluation of two commonly used detectors. Sci Rep 11, 806. https://doi.org/10.1038/s41598-020-78995-8
-
-This task emphasizes the importance of data preparation and training strategies to create models that can generalize well to different underwater environments.
-
-## Task Description
-
-### Objective
-The objective is to train models on 10 out of the 11 datasets and assess their ability to generalize with the remaining unseen dataset by accurately detecting Antarctic baleen whale sounds.
-
-### Data
-
-**Table extract from [1]** : Description of annotated datasets including the site-year, location, initials of the analyst who made the annotations, type of instrument, start and stop date of the annotations, and number of hours (independent dates and times) annotated, as well as the total duration of the recordings annotated. 
-
-![Table extract from [1]](imgs/dataset_infos.png)
-
-Among the eleven datasets in the original publication, the dataset **Balleny Island 2015** was chosen for evaluation. This dataset represents a unique geographical location, the recording device used is only shared with one other dataset and finally, all seven labels are significatively present in it.
-
-Seven labels have to be detected: 
-- **BmA**: Antarctic blue whale unit A
-- **BmB**: Antarctic blue whale unit AB
-- **BmZ**: Antarctic blue whale z-call
-- **BmD**: Blue whale FM (AKA D-calls)
-- **Bp20Hz**: Fin whale 20 Hz pulse
-- **Bp20Plus**: Fin whale 20 Hz pulse with energy at higher frequencies (e.g. 89 or 99 Hz components)
-- **BpDS**: Fin whale FM calls (AKA ‘high frequency’ downsweep; AKA 40 Hz pulse). 
-
-**Please, note that the proposition is a beta-test. We strongly believe that a cross validation over the 11 datasets should be done in future versions**
-
-Both the training and evaluation data have been reorganized and are available in a single downloadable package: [Download dataset](https://drive.google.com/drive/folders/1sJov_w8VBNbEdmjJeYuIBS_10YIqVRql?usp=sharing)
 
 
 #### Performance Metrics
